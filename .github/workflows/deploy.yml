@@ -1,0 +1,95 @@
+# .github/workflows/deploy.yml
+name: Deploy to ECS
+
+on:
+  push:
+    branches: [ main ]
+
+# -------------------------------------------------
+# Job 1 – Run Terraform (creates ECR, ECS, ALB, …)
+# -------------------------------------------------
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    outputs:
+      ecr_url:      ${{ steps.tf.outputs.ecr_url }}
+      cluster_name: ${{ steps.tf.outputs.cluster_name }}
+      service_name: ${{ steps.tf.outputs.service_name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ---- AWS credentials (access-key + secret-key) ----
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            us-east-1
+
+      # ---- Terraform -------------------------------------------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: infra
+        run: terraform init
+
+      - name: Terraform Apply
+        id: tf
+        working-directory: infra
+        env:
+          TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+          TF_VAR_certificate_arn: ${{ secrets.CERTIFICATE_ARN }}
+        run: |
+          terraform apply -auto-approve \
+            -var "openai_api_key=$TF_VAR_openai_api_key" \
+            -var "certificate_arn=$TF_VAR_certificate_arn"
+
+          # Export outputs for the next job
+          echo "ecr_url=$(terraform output -raw ecr_repository_url)" >> $GITHUB_OUTPUT
+          echo "cluster_name=$(terraform output -raw ecs_cluster_name)" >> $GITHUB_OUTPUT
+          echo "service_name=$(terraform output -raw ecs_service_name)" >> $GITHUB_OUTPUT
+
+# -------------------------------------------------
+# Job 2 – Build Docker image, push to ECR, force ECS redeploy
+# -------------------------------------------------
+  build-and-push:
+    needs: terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ---- AWS credentials (same as above) ----
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:            eu-west-2
+
+      # ---- Login to ECR ------------------------------------------------
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2   # v2 works with access-key auth
+
+      # ---- Build & push Docker image -----------------------------------
+      - name: Build, tag, and push image
+        env:
+          ECR_REGISTRY:   ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: rfp-copilot
+          IMAGE_TAG:      ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      # ---- Force a new ECS deployment (pulls the fresh image) ---------
+      - name: Force ECS service redeploy
+        run: |
+          aws ecs update-service \
+            --cluster ${{ needs.terraform.outputs.cluster_name }} \
+            --service ${{ needs.terraform.outputs.service_name }} \
+            --force-new-deployment

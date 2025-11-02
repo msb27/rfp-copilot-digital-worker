@@ -7,6 +7,7 @@ from tools.extract import extract_requirements
 from tools.generate import generate_response
 import json
 from datetime import datetime
+import streamlit as st
 
 # === LLM ===
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
@@ -38,44 +39,46 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
 
 # === AUDIT LOGGING ===
-def run_with_audit(rfp_text: str):
-    print("\nDigital Worker Activated")
-    print("=" * 60)
-
+# agent.py (FINAL VERSION)
+def run_with_audit(rfp_text: str, trace_placeholder=None, draft_placeholder=None):
     start_time = datetime.now()
-    result = agent_executor.invoke({
-        "input": rfp_text,
-        "current_date": start_time.strftime("%Y-%m-%d")
-    })
-    end_time = datetime.now()
 
-    # Build audit trail
+    # Reset trace
+    if trace_placeholder:
+        with trace_placeholder.container():
+            st.subheader("Live Reasoning (ReAct)")
+
+    # Step 1: Extract
+    with trace_placeholder.container():
+        with st.spinner("1. Extracting requirements..."):
+            req_result = extract_requirements.invoke({"rfp_text": rfp_text})
+            st.markdown("**extract_requirements** → Done")
+
+    # Step 2: Search
+    query = f"{req_result.get('project_type', '')} {req_result.get('client', '')} budget {req_result.get('budget_range', '')}"
+    with trace_placeholder.container():
+        with st.spinner("2. Searching knowledge base..."):
+            context = search_knowledge.invoke({"query": query})
+            st.markdown("**search_knowledge** → Found relevant docs")
+
+    # Step 3: Generate
+    with trace_placeholder.container():
+        with st.spinner("3. Generating response..."):
+            draft = generate_response.invoke({"requirements": req_result, "context": context})
+            st.markdown("**generate_response** → Draft ready")
+
+    # Audit
     audit = {
         "rfp_id": f"RFP-{start_time.strftime('%Y%m%d-%H%M')}",
         "timestamp": start_time.isoformat(),
-        "duration_seconds": (end_time - start_time).total_seconds(),
-        "input_length": len(rfp_text),
-        "tool_calls": [],
-        "sources_cited": [],
-        "final_output": result["output"]
+        "duration_seconds": (datetime.now() - start_time).total_seconds(),
+        "tool_calls": ["extract_requirements", "search_knowledge", "generate_response"],
+        "sources_cited": [line.split("[")[1].split("]")[0].split(" | ")[0] for line in context.split("\n---\n") if
+                          "[" in line],
+        "final_output": draft
     }
 
-    # Extract tool calls from intermediate steps
-    if "intermediate_steps" in result:
-        for step in result["intermediate_steps"]:
-            tool_name = step[0].tool if step[0].tool else "unknown"
-            audit["tool_calls"].append(tool_name)
-            # Extract sources from search tool
-            if tool_name == "search_knowledge":
-                output = step[1]
-                sources = [line.split("[")[1].split("]")[0].split(" | ")[0] for line in output.split("\n---\n") if
-                           "[" in line]
-                audit["sources_cited"].extend(sources)
-
-    # Save audit
-    log_path = "audit_log.jsonl"
-    with open(log_path, "a") as f:
+    with open("audit_log.jsonl", "a") as f:
         f.write(json.dumps(audit) + "\n")
 
-    print(f"\nAudit saved to {log_path}")
-    return result["output"], audit
+    return draft, audit
