@@ -1,0 +1,22 @@
+Client: Roche
+Project: Real-World Survival Modeling in Metastatic Breast Cancer
+Scope: Data linkage across EHR and claims databases
+Budget: USD 2.3 million
+Timeline: 14 months
+Compliance: HIPAA, GDPR, 21 CFR Part 11
+
+---
+
+Background:
+Roche commissioned a real-world evidence analysis to complement ongoing Phase IV studies. The objective was to estimate long-term survival trends and evaluate treatment sequencing.
+
+Approach:
+We harmonized data from four oncology registries and two payer claims datasets using the OMOP CDM. A survival model combining Kaplan–Meier estimation and causal adjustment identified time-dependent treatment effects.
+
+Key Results:
+- Integrated 250,000 patient records with 99.6% linkage accuracy.
+- Observed survival benefit consistent with trial findings.
+- Provided evidence package accepted by both FDA and EMA for labeling discussion support.
+
+Outcome:
+The project demonstrated that high-fidelity RWE pipelines can extend insights beyond trial populations under full privacy compliance.

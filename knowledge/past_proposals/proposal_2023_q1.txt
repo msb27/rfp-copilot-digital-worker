@@ -1,0 +1,71 @@
+Client: Pfizer
+Project: Phase III Oncology Trial Support
+Therapeutic Area: Oncology (Solid Tumors)
+Study Phase: Phase III
+Duration: 18 months
+Total Contract Value: USD 2.8 million
+Scope: Site selection, patient recruitment, data monitoring
+Compliance: All claims pre-approved via Veeva Vault
+
+---
+
+Background:
+Pfizer engaged our organization to deliver full-service operational support for a pivotal Phase III oncology trial evaluating a new therapy for advanced solid tumors. The sponsor required a partner capable of optimizing study timelines while maintaining the highest standards of regulatory compliance and data integrity. The engagement covered 80 sites across North America, Europe, and Asia-Pacific, targeting 1,200 enrolled patients.
+
+---
+
+Objectives:
+- Accelerate site activation and patient enrollment without compromising data quality.
+- Strengthen diversity in patient recruitment in alignment with FDA guidance.
+- Implement centralized, risk-based data monitoring to ensure real-time data oversight.
+
+---
+
+Approach:
+We deployed an AI-driven operational framework combining predictive analytics, historical performance modeling, and automated risk assessment.
+
+1. Site Selection:
+   - Leveraged an internal data lake of 15,000+ historical site records.
+   - Modeled site performance using prior enrollment speed, data quality, and audit history.
+   - Prioritized top-performing sites through our proprietary Site Intelligence Engine.
+
+2. Patient Recruitment:
+   - Applied de-identified EMR and demographic data to identify recruitment hotspots.
+   - Partnered with local advocacy groups to reach underrepresented populations.
+   - Conducted multilingual outreach campaigns under full GDPR and HIPAA compliance.
+
+3. Data Management and Monitoring:
+   - Implemented a hybrid risk-based monitoring model integrating centralized statistical review.
+   - Connected real-time EDC feeds to our data visualization dashboards for rapid issue detection.
+   - Reduced on-site monitoring visits by 27% while improving data query resolution rates.
+
+---
+
+Key Results:
+- 38% reduction in overall patient enrollment time.
+- 97% of data queries resolved within 30 days of identification.
+- Zero critical findings during Pfizer or third-party quality audits.
+- Diversity enrollment targets achieved across all participating regions.
+
+---
+
+Technology Stack:
+- AI Site Intelligence Engine (AWS-hosted, ISO 27001 certified)
+- Risk-Based Monitoring Suite (validated for 21 CFR Part 11 compliance)
+- Veeva Vault content and document management integration
+- Secure analytics environment with role-based access controls
+
+---
+
+Compliance Framework:
+All operational processes followed ICH-GCP E6(R2), FDA, and EMA guidelines. Claims and metrics were verified through documented audit trails within Pfizer’s Veeva Vault system. All project deliverables underwent internal QA and sponsor sign-off prior to submission.
+
+---
+
+Outcome and Client Value:
+The engagement demonstrated the measurable impact of AI-enabled clinical operations in reducing cycle times and improving data quality. Pfizer achieved earlier First Patient In (FPI) milestones, improved site performance predictability, and realized significant cost efficiencies while maintaining full compliance with global regulatory standards.
+
+---
+
+Key Win:
+Our AI-driven site selection reduced enrollment time by 38%, establishing a benchmark for predictive analytics in oncology trials.

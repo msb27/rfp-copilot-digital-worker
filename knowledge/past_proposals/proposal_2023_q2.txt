@@ -1,0 +1,22 @@
+Client: Medtronic
+Project: Post-Market Safety Surveillance for Cardiac Implants
+Scope: Signal detection, adverse event correlation, regulatory reporting
+Budget: USD 1.4 million
+Timeline: 15 months
+Compliance: ISO 14971, MDR 2017/745, FDA QSR
+
+---
+
+Background:
+Medtronic engaged our pharmacovigilance analytics unit to modernize its post-market surveillance process for cardiac devices. Existing manual review workflows were slow to detect emerging safety signals.
+
+Approach:
+We implemented a real-time data-mining framework integrating FDA MAUDE reports, hospital EMRs, and service logs. Bayesian signal-detection models flagged early device-related risk patterns.
+
+Key Results:
+- Mean detection lag reduced from 180 to 45 days.
+- Two minor device-alert updates issued proactively to regulators.
+- Audit readiness improved through automated traceability.
+
+Outcome:
+The engagement strengthened Medtronic’s risk-management system and ensured continuous compliance under MDR and FDA QSR standards.

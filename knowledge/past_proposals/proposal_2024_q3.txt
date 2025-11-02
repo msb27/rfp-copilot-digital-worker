@@ -1,0 +1,32 @@
+Client: AstraZeneca
+Project: Decentralized Phase II Cardiovascular Trial
+Therapeutic Area: Cardiology
+Study Phase: II
+Duration: 20 months
+Total Contract Value: USD 3.4 million
+Scope: Remote patient enrollment, telehealth data capture, eConsent management
+Compliance: ICH-GCP E6(R2), FDA 21 CFR Part 11, GDPR
+
+---
+
+Background:
+AstraZeneca engaged our CRO to design and execute a fully decentralized clinical trial (DCT) evaluating a novel lipid-lowering therapy. The sponsor’s goal was to shorten patient recruitment timelines while maintaining data integrity and protocol adherence.
+
+Objectives:
+- Enable remote enrollment and informed consent through secure digital platforms.
+- Capture continuous cardiovascular biomarker data from wearable devices.
+- Ensure full regulatory compliance with regional privacy laws.
+
+Approach:
+We implemented a hybrid DCT model with 60% of visits conducted remotely. The eConsent workflow was validated under 21 CFR Part 11, and real-time device telemetry was integrated into the EDC via API. Data quality was continuously monitored using anomaly-detection algorithms.
+
+Key Results:
+- 45% reduction in screening-to-enrollment cycle time.
+- 97% patient adherence to wearable-device protocols.
+- Zero major protocol deviations in remote visit documentation.
+
+Technology Stack:
+Validated telehealth platform (ISO 27001), eConsent module, remote monitoring dashboard, encrypted AWS storage.
+
+Outcome:
+The study demonstrated that decentralized designs can accelerate cardiovascular research while maintaining full compliance and data reliability.

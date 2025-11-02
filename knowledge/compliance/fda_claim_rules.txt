@@ -1,0 +1,87 @@
+Title: FDA Substantiation and Claim Support Requirements
+Version: 1.1
+Owner: Regulatory Affairs / Medical Compliance
+Applies To: All scientific, clinical, and marketing claims referencing drug or technology performance
+Effective Date: January 2024
+
+---
+
+Purpose:
+This document defines the substantiation standards required under U.S. Food and Drug Administration (FDA) regulations for any claim of efficacy, safety, or comparative performance made in clinical, promotional, or proposal materials.  
+Its goal is to ensure that all public-facing statements are truthful, not misleading, and supported by adequate scientific evidence consistent with 21 CFR Part 202 (Prescription Drug Advertising) and related FDA guidance documents.
+
+---
+
+Scope:
+These requirements apply to:
+- All proposal content referencing therapeutic efficacy or safety outcomes.
+- All RWE (Real-World Evidence) or clinical trial summaries used in client communications.
+- All AI-generated or human-authored text derived from company data assets.
+
+Claims that do not meet the substantiation standards defined below must not be included in any internal, external, or client-facing deliverables.
+
+---
+
+Substantiation Requirements:
+
+1. **Efficacy Claims**
+   - Any statement implying that a product, intervention, or process “improves,” “reduces,” “accelerates,” or otherwise affects a clinical outcome must be supported by **at least two well-controlled trials** (randomized, double-blind preferred).
+   - Acceptable forms of evidence include peer-reviewed publications, sponsor-owned trial reports, or validated real-world data analyses.
+   - Example (acceptable):  
+     “In two Phase III studies, median enrollment time was reduced by 38% (REF-2024-017).”
+   - Example (non-compliant):  
+     “Our approach guarantees faster enrollment.”
+
+2. **Safety Claims**
+   - Safety-related statements must be supported by **post-market surveillance data** or equivalent long-term observational data.
+   - Include reference to dataset size, duration, and source.
+   - Example (acceptable):  
+     “No serious adverse events were observed across a 12-month follow-up (n=1,200 patients).”
+   - Example (non-compliant):  
+     “The system is completely safe for all users.”
+
+3. **Use of Terms “Proven” or “Guaranteed”**
+   - The terms **“proven”**, **“guaranteed”**, or any absolute performance descriptor may only be used when supported by **statistically significant evidence (p<0.05)** derived from confirmatory, well-controlled studies.
+   - Otherwise, these terms are prohibited.
+   - Alternative phrasing should include **quantified, qualified** claims such as “demonstrated,” “observed,” or “associated with.”
+
+4. **Comparative Claims**
+   - Any claim comparing performance, efficacy, or safety against another product, process, or company must be supported by **head-to-head data** obtained under equivalent conditions.
+   - Indirect comparisons (e.g., literature-based) must clearly state their limitations.
+   - Example (acceptable):  
+     “Compared to standard statistical methods, causal AI identified three additional confounders.”
+   - Example (non-compliant):  
+     “Our platform outperforms all competitors.”
+
+---
+
+Evidence Documentation:
+- Every claim included in external materials must reference the corresponding evidence file in **Veeva Vault**, using its approved reference number (e.g., REF-2024-001).
+- Documentation must include:
+  - Study or dataset name
+  - Methodology summary
+  - Sample size and statistical outcome
+  - Reviewer and approval record
+
+All supporting materials must be reviewable by internal QA and regulatory teams upon request.
+
+---
+
+AI-Generated Content Requirements:
+When AI systems produce draft text referencing efficacy, safety, or comparative performance:
+- The system must retrieve supporting documents or metadata from pre-approved repositories.
+- Generated statements must include placeholders for evidence references.
+- Final text must undergo human regulatory review before approval for external use.
+
+---
+
+Non-Compliance and Escalation:
+Unsubstantiated or misleading claims will trigger an internal **Corrective and Preventive Action (CAPA)** under SOP-QA-208.  
+Repeated violations may result in suspension of promotional content privileges or mandatory retraining.
+
+---
+
+Summary:
+All clinical or performance claims must be backed by robust, verifiable evidence.  
+Adhering to FDA substantiation requirements ensures scientific integrity, protects public trust, and supports defensible, audit-ready communications across all business units.
+

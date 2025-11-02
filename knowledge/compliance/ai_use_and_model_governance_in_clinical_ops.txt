@@ -1,0 +1,17 @@
+Title: AI Use and Model Governance in Clinical Operations
+Version: 1.0
+Owner: Digital Innovation & Compliance
+Effective Date: June 2024
+
+Purpose:
+To regulate deployment of AI systems in clinical and regulatory workflows.
+
+Requirements:
+1. Model Validation – all AI algorithms must undergo documented accuracy and bias testing prior to production.
+2. Human Oversight – AI outputs require qualified reviewer approval before external distribution.
+3. Traceability – maintain logs linking data inputs, model versions, and outputs for at least five years.
+4. Ethical Boundaries – AI may not generate patient-specific recommendations or alter source data.
+5. Security – models and training datasets stored in validated, access-controlled environments.
+
+Outcome:
+Ensures transparency, accountability, and ethical AI integration within compliant clinical operations.

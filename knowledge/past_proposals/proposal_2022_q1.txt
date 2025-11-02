@@ -1,0 +1,22 @@
+Client: Sanofi
+Project: Vaccine Supply Chain Predictive Analytics
+Scope: Cold-chain optimization and inventory forecasting
+Duration: 10 months
+Budget: USD 1.6 million
+Compliance: WHO GDP, ISO 13485, internal QA-SUP-204
+
+---
+
+Background:
+Sanofi sought an analytics partner to improve global vaccine supply reliability across 32 distribution centers. Temperature excursions and shipment delays had increased wastage rates beyond target thresholds.
+
+Approach:
+Our data-science team built a predictive demand model using shipment telemetry, regional epidemiology, and warehouse sensor data. Anomaly detection flagged deviations before spoilage thresholds were breached.
+
+Key Results:
+- 28% reduction in cold-chain excursions.
+- Forecast accuracy improved from 72% to 93%.
+- $4.2M in annualized savings through optimized logistics.
+
+Outcome:
+This engagement validated the benefit of predictive modeling in vaccine operations, aligning with WHO GDP requirements and enhancing global distribution resilience.

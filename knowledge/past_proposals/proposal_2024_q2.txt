@@ -1,0 +1,82 @@
+Client: Novartis
+Project: Real-World Evidence (RWE) Study
+Therapeutic Area: Immunology and Rare Diseases
+Study Type: Observational, Retrospective Cohort
+Duration: 12 months
+Total Contract Value: USD 1.9 million
+Scope: Data integration from 12 registries across 5 countries
+Compliance: FDA 21 CFR Part 11 compliant data pipeline
+
+---
+
+Background:
+Novartis commissioned our organization to support a Real-World Evidence (RWE) study aimed at quantifying long-term treatment outcomes for patients with a rare autoimmune condition. The project involved integrating heterogeneous datasets from twelve independent national and regional disease registries, each with distinct data structures, privacy frameworks, and governance requirements.
+
+The primary goal was to consolidate these datasets into a single analytics-ready environment and apply advanced causal inference methods to uncover factors influencing patient outcomes that were not captured through traditional statistical analysis.
+
+---
+
+Objectives:
+- Integrate multi-country registry data within a secure, regulatory-compliant data environment.
+- Harmonize disparate data models and ensure standardized terminology using CDISC and OMOP vocabularies.
+- Employ causal AI methods to identify confounding variables influencing observed treatment effects.
+- Deliver validated analytical outputs suitable for regulatory submission and publication.
+
+---
+
+Approach:
+Our approach combined domain expertise in observational data analytics with proprietary AI-driven modeling pipelines. The engagement included the following key components:
+
+1. Data Acquisition and Integration:
+   - Established data-sharing agreements with twelve registries across North America and Europe.
+   - Ingested and harmonized patient-level data within a controlled-access AWS environment configured for 21 CFR Part 11 compliance.
+   - Applied automated data quality checks for completeness, range, and logical consistency.
+
+2. Data Standardization:
+   - Mapped incoming datasets to the OMOP Common Data Model (CDM) and standardized clinical concepts using SNOMED CT and MedDRA.
+   - Implemented a metadata registry to trace data provenance and transformation lineage for audit readiness.
+
+3. Causal AI Modeling:
+   - Deployed a proprietary causal discovery framework using graph-based structural equation modeling.
+   - Identified three previously undetected confounding variables influencing treatment adherence and adverse event rates.
+   - Benchmarked model outputs against traditional regression-based analyses to validate robustness.
+
+4. Compliance and Quality Oversight:
+   - All data pipelines validated under FDA 21 CFR Part 11 controls.
+   - User authentication, audit trails, and change logs maintained in compliance with internal QA-SOP-311.
+   - Periodic data integrity reviews performed jointly with Novartis data governance leads.
+
+---
+
+Key Results:
+- Successful integration of 12 heterogeneous registries into a unified analytics environment.
+- Discovery of 3 hidden confounders missed by traditional statistical approaches, enhancing the credibility of observed treatment effects.
+- Achieved a 100% data traceability rate through metadata-driven audit trails.
+- Delivered regulatory-grade datasets suitable for both FDA and EMA evidence submissions.
+
+---
+
+Technology Stack:
+- AWS-based data lake (GxP-qualified, ISO 27001 certified)
+- Causal AI engine using structural causal modeling (Python-based)
+- OMOP CDM v6.0 data model implementation
+- Veeva Vault integration for document control and audit management
+
+---
+
+Compliance Framework:
+All workflows adhered to FDA 21 CFR Part 11, ICH-GCP E6(R2), and GDPR standards for data protection and auditability.
+Electronic records and signatures were validated under corporate SOP-QA-105, ensuring full traceability from ingestion through analysis.
+All transformations and analyses were logged and version-controlled for reproducibility.
+
+---
+
+Outcome and Client Value:
+The study demonstrated that advanced causal AI techniques can materially enhance the reliability of real-world evidence by uncovering non-obvious causal relationships.
+Novartis obtained new insights into patient behavior and treatment efficacy, supporting both publication and internal R&D decision-making.
+The engagement established a scalable, compliant framework for future RWE initiatives using AI-assisted analytics.
+
+---
+
+Key Win:
+Causal AI identified three hidden confounders missed by traditional statistical approaches, improving causal inference robustness and regulatory confidence.
