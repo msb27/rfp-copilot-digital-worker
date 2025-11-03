@@ -6,6 +6,33 @@ from agent import run_with_audit
 from tools.extract import extract_requirements
 import PyPDF2
 import io
+import os
+
+
+# === VECTORSTORE LOADER ===
+@st.cache_resource
+def get_vectorstore():
+    """
+    Load FAISS vectorstore from rag/vectorstore/
+    Returns None if not found (RAG disabled)
+    """
+    path = "rag/vectorstore"
+    if not os.path.exists(path):
+        st.warning("Warning: Vectorstore not found. RAG is disabled. Uploads will still work, but no knowledge base.")
+        return None
+
+    try:
+        from langchain.vectorstores import FAISS
+        from langchain_openai import OpenAIEmbeddings
+        return FAISS.load_local(
+            path,
+            OpenAIEmbeddings(model="text-embedding-3-small"),
+            allow_dangerous_deserialization=True
+        )
+    except Exception as e:
+        st.error(f"Failed to load vectorstore: {e}")
+        return None
+
 
 # === PAGE CONFIG ===
 st.set_page_config(
@@ -66,27 +93,33 @@ uploaded_file = st.file_uploader(
 
 def extract_text(file):
     if file.type == "application/pdf":
-        reader = PyPDF2.PdfReader(io.BytesIO(file.read()))
+        reader = PyPDF2.PdfReader(io.BytesIO(file.getvalue()))  # Use getvalue() for uploaded file
         text = ""
         for page in reader.pages:
             text += page.extract_text() + "\n"
         return text
     else:
-        return str(file.read(), "utf-8")
+        return str(file.getvalue(), "utf-8")
 
 
 # === MAIN LOGIC ===
 if uploaded_file:
     rfp_text = extract_text(uploaded_file)
 
+    # Load vectorstore (cached)
+    vectorstore = get_vectorstore()
+
     with st.spinner("Digital Worker is thinking..."):
-        # Create placeholders
         trace_placeholder = st.empty()
         draft_placeholder = st.empty()
         audit_placeholder = st.empty()
 
-        # Run agent with streaming trace
-        output, audit = run_with_audit(rfp_text, trace_placeholder, draft_placeholder)
+        # Pass vectorstore to agent
+        output, audit = run_with_audit(
+            rfp_text,
+            trace_placeholder,
+            draft_placeholder,
+        )
 
         # === LIVE REASONING TRACE ===
         with trace_placeholder.container():
@@ -106,7 +139,7 @@ if uploaded_file:
             st.download_button(
                 "Download Draft (.md)",
                 output,
-                file_name=f"RFP_Response_{audit['rfp_id']}.md",
+                file_name=f"RFP_Response_{audit.get('rfp_id', 'unknown')}.md",
                 mime="text/markdown"
             )
 
