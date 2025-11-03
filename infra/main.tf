@@ -254,3 +254,57 @@ resource "aws_ecs_service" "app" {
 
   depends_on = [aws_lb_listener.https]
 }
+
+# === INTERNET GATEWAY (for public subnets) ===
+resource "aws_internet_gateway" "main" {
+  vpc_id = data.aws_vpc.default.id
+  tags   = { Name = "${var.app_name}-igw" }
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = data.aws_vpc.default.id
+  tags   = { Name = "${var.app_name}-public-rt" }
+}
+
+resource "aws_route" "public_internet" {
+  route_table_id         = aws_route_table.public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.main.id
+}
+
+resource "aws_route_table_association" "public" {
+  count          = length(data.aws_subnets.default.ids)
+  subnet_id      = data.aws_subnets.default.ids[count.index]
+  route_table_id = aws_route_table.public.id
+}
+
+# === NAT GATEWAY (for private subnet outbound) ===
+resource "aws_eip" "nat" {
+  domain = "vpc"
+  tags   = { Name = "${var.app_name}-nat-eip" }
+}
+
+resource "aws_nat_gateway" "main" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = data.aws_subnets.default.ids[0]  # First public subnet
+  tags          = { Name = "${var.app_name}-nat" }
+
+  depends_on = [aws_internet_gateway.main]
+}
+
+resource "aws_route_table" "private" {
+  vpc_id = data.aws_vpc.default.id
+  tags   = { Name = "${var.app_name}-private-rt" }
+}
+
+resource "aws_route" "private_nat" {
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.main.id
+}
+
+resource "aws_route_table_association" "private" {
+  count          = length(data.aws_subnets.default.ids)
+  subnet_id      = data.aws_subnets.default.ids[count.index]
+  route_table_id = aws_route_table.private.id
+}
